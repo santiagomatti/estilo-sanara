@@ -1,41 +1,29 @@
-// ACTUALIZACION: Se cambian los alerts por sweet alerts
-
-// CLASE PRODUCTO
-
-class Producto {
-    constructor(id, nombre, precio, stock, img) { // Constructor de la clase Producto
-        this.id = id;
-        this.nombre = nombre;
-        this.precio = precio;
-        this.stock = stock;
-        this.img = img;
-    }
-}
+// Archivo JavaScript para la página de productos
 
 // INICIALIZACIÓN DE PRODUCTOS
 
-const productos = [ // Array que engloba a todos los productos
-    [ // Array de velas
-        new Producto(1, 'Vela de canela', 6500, 55, 'assets/img/vela-de-canela.jpg'),
-        new Producto(2, 'Vela de jazmin', 5000, 25, 'assets/img/vela-de-jazmin.jpg'),
-        new Producto(3, 'Vela de lavanda', 5500, 30, 'assets/img/vela-de-lavanda.jpg'),
-        new Producto(4, 'Vela de vainilla', 7000, 40, 'assets/img/vela-de-vainilla.jpg')
-    ],
-    [ // Array de aromatizadores
-        new Producto(5, 'Aromatizador de eucalipto', 8500, 45, 'assets/img/aromatizador-de-eucalipto.jpg'),
-        new Producto(6, 'Aromatizador de hierbas', 9000, 20, 'assets/img/aromatizador-de-hierbas.jpg'),
-        new Producto(7, 'Aromatizador de limon', 7500, 55, 'assets/img/aromatizador-de-limon.jpg'),
-        new Producto(8, 'Aromatizador de rosas', 8000, 35, 'assets/img/aromatizador-de-rosas.jpg')
-    ],
-    [ // Array de inciensos
-        new Producto(9, 'Incienso de coco', 15000, 40, 'assets/img/incienso-de-coco.jpg'),
-        new Producto(10, 'Incienso de manzanilla', 12500, 50, 'assets/img/incienso-de-manzanilla.jpg'),
-        new Producto(11, 'Incienso de naranja', 13500, 35, 'assets/img/incienso-de-naranja.jpg'),
-        new Producto(12, 'Incienso de palo santo', 14000, 45, 'assets/img/incienso-de-palo-santo.jpg')
-    ]
-];
+let productos = []; // Array que almacena los productos
 
-// ELEMENTOS GLOBALES
+async function inicializarProductos() { // Función que carga los productos al inicio del programa
+    const data = await cargarProductos();
+    if (data) {
+        productos = Object.values(data);
+        Inicio(); // Se inicia el programa después de cargar los productos
+    }
+}
+
+async function cargarProductos() { // Función que carga los productos del archivo JSON
+    try {
+        const response = await fetch('../json/productos.json');
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error al cargar los productos:', error);
+        return null;
+    }
+}
+
+// CARRITO DE COMPRAS
 
 let carrito = []; // Array que almacena los productos seleccionados por el usuario (Tambien se almacena en e local storage)
 let cantCarrito = 0; // Variable que almacena la cantidad de productos en el carrito
@@ -141,6 +129,15 @@ function agregarAlCarrito(id) { // Funcion que agrega un producto al carrito
             title: 'Error',
             text: 'No hay suficiente stock'
         })
+        return;
+    }
+
+    if (cantidad <= 0) { // Se verifica que la cantidad sea mayor a 0
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'La cantidad debe ser mayor a 0'
+        });
         return;
     }
 
@@ -257,4 +254,4 @@ document.getElementById('buscar').addEventListener('submit', (e) => {
 
 // INICIO DEL PROGRAMA
 
-Inicio();
+inicializarProductos(); // Se inicia el programa cargando los productos

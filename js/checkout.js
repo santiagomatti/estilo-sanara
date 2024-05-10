@@ -1,42 +1,32 @@
-// CLASE PRODUCTO
-
-class Producto {
-    constructor(id, nombre, precio, stock, img) { // Constructor de la clase Producto
-        this.id = id;
-        this.nombre = nombre;
-        this.precio = precio;
-        this.stock = stock;
-        this.img = img;
-    }
-}
+// Archivo JavaScript para la página de checkout
 
 // INICIALIZACIÓN DE PRODUCTOS
 
-const productos = [ // Array que engloba a todos los productos
-    [ // Array de velas
-        new Producto(1, 'Vela de canela', 6500, 55, 'assets/img/vela-de-canela.jpg'),
-        new Producto(2, 'Vela de jazmin', 5000, 25, 'assets/img/vela-de-jazmin.jpg'),
-        new Producto(3, 'Vela de lavanda', 5500, 30, 'assets/img/vela-de-lavanda.jpg'),
-        new Producto(4, 'Vela de vainilla', 7000, 40, 'assets/img/vela-de-vainilla.jpg')
-    ],
-    [ // Array de aromatizadores
-        new Producto(5, 'Aromatizador de eucalipto', 8500, 45, 'assets/img/aromatizador-de-eucalipto.jpg'),
-        new Producto(6, 'Aromatizador de hierbas', 9000, 20, 'assets/img/aromatizador-de-hierbas.jpg'),
-        new Producto(7, 'Aromatizador de limon', 7500, 55, 'assets/img/aromatizador-de-limon.jpg'),
-        new Producto(8, 'Aromatizador de rosas', 8000, 35, 'assets/img/aromatizador-de-rosas.jpg')
-    ],
-    [ // Array de inciensos
-        new Producto(9, 'Incienso de coco', 15000, 40, 'assets/img/incienso-de-coco.jpg'),
-        new Producto(10, 'Incienso de manzanilla', 12500, 50, 'assets/img/incienso-de-manzanilla.jpg'),
-        new Producto(11, 'Incienso de naranja', 13500, 35, 'assets/img/incienso-de-naranja.jpg'),
-        new Producto(12, 'Incienso de palo santo', 14000, 45, 'assets/img/incienso-de-palo-santo.jpg')
-    ]
-];
+let productos = [];
 
-// Cargar los productos del local storage
+async function inicializarProductos() { // Función que carga los productos al inicio del programa
+    const data = await cargarProductos();
+    if (data) {
+        productos = Object.values(data);
+        Inicio(); // Se inicia el programa después de cargar los productos
+    }
+}
 
-let carrito = []; // Array que almacena los productos seleccionados por el usuario (Tambien se almacena en e local storage)
-let cantCarrito = 0; // Variable que almacena la cantidad de productos en el carrito
+async function cargarProductos() { // Función que carga los productos desde un archivo JSON
+    try {
+        const response = await fetch('../json/productos.json');
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error al cargar los productos:', error);
+        return null;
+    }
+}
+
+// CARRITO DE COMPRAS
+
+let carrito = [];
+let cantCarrito = 0;
 let total = 0;
 
 if (localStorage.getItem('carrito')) {
@@ -51,97 +41,99 @@ if (localStorage.getItem('carrito')) {
 
 document.getElementById('cantCarrito').innerText = cantCarrito;
 
-// Limpiar y mostrar los productos en el carrito
+function Inicio() { // Función que se ejecuta al inicio del programa
 
-const carritoDOM = document.getElementById('carrito');
+    const carritoDOM = document.getElementById('carrito');
 
-carritoDOM.innerHTML = '';
+    carritoDOM.innerHTML = '';
 
-carrito.forEach(producto => {
-    const prod = productos.flat().find(prod => prod.id === producto.id);
-    const precio = prod.precio * producto.cantidad;
+    carrito.forEach(producto => { // Se recorre el carrito para mostrar los productos en el carrito
+        const prod = productos.flat().find(prod => prod.id === producto.id);
+        const precio = prod.precio * producto.cantidad;
 
-    total += precio;
+        total += precio;
 
-    const nuevoProd = document.createElement('li');
-    nuevoProd.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'lh-sm');
+        const nuevoProd = document.createElement('li');
+        nuevoProd.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'lh-sm');
 
-    nuevoProd.innerHTML = `<div>
+        nuevoProd.innerHTML = `<div>
                                 <h6 class="my-0">${prod.nombre}</h6>
                                 <small class="text-body-secondary">Cantidad: ${producto.cantidad}</small>
                             </div>
                             <span class="text-body-secondary">$${precio}</span>`;
 
-    carritoDOM.appendChild(nuevoProd);
-});
+        carritoDOM.appendChild(nuevoProd); // Se agrega el producto al carrito
+    });
 
-const totalDOM = document.createElement('li');
-totalDOM.classList.add('list-group-item', 'd-flex', 'justify-content-between');
+    const totalDOM = document.createElement('li');
+    totalDOM.classList.add('list-group-item', 'd-flex', 'justify-content-between');
 
-totalDOM.innerHTML = `<span>Total</span>
+    totalDOM.innerHTML = `<span>Total</span>
                         <strong>$${total}</strong>`;
-carritoDOM.appendChild(totalDOM);
-    
-document.querySelector('form').addEventListener('submit', (e) => {
-    e.preventDefault();
+    carritoDOM.appendChild(totalDOM); // Se agrega el total al carrito
 
-    const nombre = document.getElementById('firstName').value;
-    const apellido = document.getElementById('lastName').value;
-    const email = document.getElementById('email').value;
-    const direccion = document.getElementById('address').value;
-    const pago = document.querySelector('input[name="paymentMethod"]:checked');
+    document.querySelector('form').addEventListener('submit', (e) => { // Validación de los datos del formulario
+        e.preventDefault();
 
-    if (!/^[A-Za-z\s]+$/.test(nombre)) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Nombre invalido',
-            text: 'Ingrese un nombre valido'
-        });
-        return;
-    }
+        const nombre = document.getElementById('firstName').value;
+        const apellido = document.getElementById('lastName').value;
+        const email = document.getElementById('email').value;
+        const direccion = document.getElementById('address').value;
+        const pago = document.querySelector('input[name="paymentMethod"]:checked');
 
-    if (!/^[A-Za-z\s]+$/.test(apellido)) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Apellido invalido',
-            text: 'Ingrese un apellido valido'
-        });
-        return;
-    }
+        if (!/^[A-Za-z\s]+$/.test(nombre)) { // Se valida que el nombre sean solo letras
+            Swal.fire({
+                icon: 'error',
+                title: 'Nombre invalido',
+                text: 'Ingrese un nombre valido'
+            });
+            return;
+        }
 
-    if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email)) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Email invalido',
-            text: 'Ingrese un email valido'
-        });
-        return;
-    }
+        if (!/^[A-Za-z\s]+$/.test(apellido)) { // Se valida que el apellido sean solo letras
+            Swal.fire({
+                icon: 'error',
+                title: 'Apellido invalido',
+                text: 'Ingrese un apellido valido'
+            });
+            return;
+        }
 
-    if (direccion === '') {
-        Swal.fire({
-            icon: 'error',
-            title: 'Dirección invalida',
-            text: 'Ingrese una dirección valida'
-        });
-        return;
-    }
+        if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email)) { // Se valida el email
+            Swal.fire({
+                icon: 'error',
+                title: 'Email invalido',
+                text: 'Ingrese un email valido'
+            });
+            return;
+        }
 
-    if (!pago) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Pago invalido',
-            text: 'Seleccione una opción de pago'
-        });
-        return;
-    }
+        if (direccion === '') { // Se valida que la dirección no este vacia
+            Swal.fire({
+                icon: 'error',
+                title: 'Dirección invalida',
+                text: 'Ingrese una dirección valida'
+            });
+            return;
+        }
 
-    // Aca se deberia enviar la informacion a un servidor para procesar la compra
+        if (!pago) { // Se valida que se haya seleccionado un método de pago
+            Swal.fire({
+                icon: 'error',
+                title: 'Pago invalido',
+                text: 'Seleccione una opción de pago'
+            });
+            return;
+        }
 
-    localStorage.clear();
-    window.location.href = 'compra-finalizada.html';
-});
+        // Aca se deberia enviar la informacion a un servidor para procesar la compra
+
+        localStorage.clear();
+        window.location.href = 'compra-finalizada.html';
+    });
+}
 
 // Inicializar el programa
 
+inicializarProductos();
 console.log('Programa iniciado con exito');

@@ -1,8 +1,59 @@
-/* Paleta de colores:
-#C79867
-#C6C9A1
-#FFEBDC
-#A18167 */
+/* Estilos personalizados */
 
-/* Fuentes:
-- 'Roboto', sans-serif; */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #faf1ea;
+}
+
+.btn-primary {
+    background-color: #C79867;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #dcdeca;
+}
+
+.btn-secondary {
+    background-color: #A18167;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: #dcdeca;
+}
+
+.btn:active {
+    color: #A18167 !important;
+    background-color: #FFEBDC !important;
+}
+
+.text-primary {
+    color: #C79867 !important;
+}
+
+.rounded-pill {
+    background-color: #C79867 !important;
+}
+
+.card {
+    background-color: #dcdeca;
+}
+
+.btn-outline-dark {
+    background-color: #FFEBDC;
+}
+
+.bg-dark {
+    background-color: #A18167 !important;
+}
+
+.form-check-input:checked {
+    background-color: #C79867 !important;
+    border: #A18167;
+}
