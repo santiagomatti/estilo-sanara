@@ -14,7 +14,7 @@ async function inicializarProductos() { // Función que carga los productos al i
 
 async function cargarProductos() { // Función que carga los productos del archivo JSON
     try {
-        const response = await fetch('https://santiagomatti.github.io/estilo-sanara/json/productos.json');
+        const response = await fetch('https://santiagomatti.github.io/estilo-sanara/json/productos.json'); // Se obtienen los productos del archivo JSON como si fuera una API
         const data = await response.json();
         return data;
     } catch (error) {
