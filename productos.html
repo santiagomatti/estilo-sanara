@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content="Productos de Estilo Sanara"/>
+    <meta name="author" content="Estilo Sanara"/>
+    <title>Estilo Sanara • Productos</title>
+
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png"/>
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="index.html"><img src="assets/favicon.png" alt="Logo"
+                    style="width: 25px; margin-right: 10px;">Estilo Sanara</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link active" href="productos.html">Productos</a></li>
+                </ul>
+                <form id="buscar" class="d-flex me-auto">
+                    <input id="busqueda" class="form-control me-2" type="search" placeholder="Buscar producto..."
+                        aria-label="Buscar">
+                    <button class="btn btn-outline-dark" type="submit">Buscar</button>
+                </form>
+                <form class="d-flex">
+                    <button id="carrito" class="btn btn-outline-dark" type="submit">
+                        <i class="bi-cart-fill me-1"></i>
+                        Carrito
+                        <span id="cantCarrito" class="badge bg-dark text-white ms-1 rounded-pill">#</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+
+            <div id="productos" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <!-- Aca se Renderizan los productos -->
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Estilo Sanara 2024</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>

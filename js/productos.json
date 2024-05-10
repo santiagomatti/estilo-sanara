@@ -1,0 +1,92 @@
+{
+    "velas": [
+        {
+            "id": 1,
+            "nombre": "Vela de canela",
+            "precio": 6500,
+            "stock": 55,
+            "img": "assets/img/vela-de-canela.jpg"
+        },
+        {
+            "id": 2,
+            "nombre": "Vela de jazmin",
+            "precio": 5000,
+            "stock": 25,
+            "img": "assets/img/vela-de-jazmin.jpg"
+        },
+        {
+            "id": 3,
+            "nombre": "Vela de lavanda",
+            "precio": 5500,
+            "stock": 30,
+            "img": "assets/img/vela-de-lavanda.jpg"
+        },
+        {
+            "id": 4,
+            "nombre": "Vela de vainilla",
+            "precio": 7000,
+            "stock": 40,
+            "img": "assets/img/vela-de-vainilla.jpg"
+        }
+    ],
+    "aromatizadores": [
+        {
+            "id": 5,
+            "nombre": "Aromatizador de eucalipto",
+            "precio": 8500,
+            "stock": 45,
+            "img": "assets/img/aromatizador-de-eucalipto.jpg"
+        },
+        {
+            "id": 6,
+            "nombre": "Aromatizador de hierbas",
+            "precio": 9000,
+            "stock": 20,
+            "img": "assets/img/aromatizador-de-hierbas.jpg"
+        },
+        {
+            "id": 7,
+            "nombre": "Aromatizador de limon",
+            "precio": 7500,
+            "stock": 55,
+            "img": "assets/img/aromatizador-de-limon.jpg"
+        },
+        {
+            "id": 8,
+            "nombre": "Aromatizador de rosas",
+            "precio": 8000,
+            "stock": 35,
+            "img": "assets/img/aromatizador-de-rosas.jpg"
+        }
+    ],
+    "inciensos": [
+        {
+            "id": 9,
+            "nombre": "Incienso de coco",
+            "precio": 15000,
+            "stock": 40,
+            "img": "assets/img/incienso-de-coco.jpg"
+        },
+        {
+            "id": 10,
+            "nombre": "Incienso de manzanilla",
+            "precio": 12500,
+            "stock": 50,
+            "img": "assets/img/incienso-de-manzanilla.jpg"
+        },
+        {
+            "id": 11,
+            "nombre": "Incienso de naranja",
+            "precio": 13500,
+            "stock": 35,
+            "img": "assets/img/incienso-de-naranja.jpg"
+        },
+        {
+            "id": 12,
+            "nombre": "Incienso de palo santo",
+            "precio": 14000,
+            "stock": 45,
+            "img": "assets/img/incienso-de-palo-santo.jpg"
+        }
+    ]
+}
